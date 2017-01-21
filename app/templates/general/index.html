@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div id="app">
+
+        <h1>Distance, tempo or time calculator</h1>
+
+        <div id="calculator-container">
+            <div id="calculator-running">
+                <p>Enter values into two fields and calculate the last one.</p>
+                <form method="post" action="{{ url_for('calculate_run') }}">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="control-group">
+                                <div class="col-sm-3">
+                                    <div class="controls">
+                                        <label>Distance</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="controls">
+                                        <div class="input-group">
+                                            <input type="text" name="distance" class="form-control"
+                                                   aria-label="Enter distance in Km" id="distance" value="">
+                                            <span class="input-group-addon">Km</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="control-group">
+                                <div class="col-sm-3">
+                                    <div class="controls">
+                                        <label>Tempo</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="controls">
+                                        <div class="input-group">
+                                            <input type="text" name="tempo" class="form-control"
+                                                   aria-label="Enter tempo in min / Km" id="tempo" value="">
+                                            <span class="input-group-addon">min / Km</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="control-group">
+                                <div class="col-sm-3">
+                                    <div class="controls">
+                                        <label>Time</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="controls">
+                                        <div class="input-group">
+                                            <input type="text" name="time[hours]" class="form-control"
+                                                   aria-label="Enter number of hours" id="time_hours" value="">
+                                            <span class="input-group-addon">:</span>
+                                            <input type="text" name="time[minutes]" class="form-control"
+                                                   aria-label="Enter number of minutes" id="time_minutes" value="">
+                                            <span class="input-group-addon">:</span>
+                                            <input type="text" name="time[seconds]" class="form-control"
+                                                   aria-label="Enter number of seconds" id="time_seconds" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="control-group">
+                                <div class="col-sm-12">
+                                    <br />
+                                    <button type="submit" class="btn btn-default pull-right calculate">Calculate</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
