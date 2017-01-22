@@ -14,14 +14,13 @@
                             <div class="control-group">
                                 <div class="col-sm-3">
                                     <div class="controls">
-                                        <label>Distance</label>
+                                        <label>{{ form_run.distance.label }}</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="controls">
                                         <div class="input-group">
-                                            <input type="text" name="distance" class="form-control"
-                                                   aria-label="Enter distance in Km" id="distance" value="">
+                                            {{ form_run.distance(class="form-control", **{"aria-label": "Enter distance in Km"}) }}
                                             <span class="input-group-addon">Km</span>
                                         </div>
                                     </div>
@@ -33,14 +32,15 @@
                             <div class="control-group">
                                 <div class="col-sm-3">
                                     <div class="controls">
-                                        <label>Tempo</label>
+                                        <label>{{ form_run.tempo_minutes.label }}</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="controls">
                                         <div class="input-group">
-                                            <input type="text" name="tempo" class="form-control"
-                                                   aria-label="Enter tempo in min / Km" id="tempo" value="">
+                                            {{ form_run.tempo_minutes(class="form-control", **{"aria-label": "Enter tempo (minutes)"}) }}
+                                            <span class="input-group-addon">:</span>
+                                            {{ form_run.tempo_seconds(class="form-control", **{"aria-label": "Enter tempo (seconds)"}) }}
                                             <span class="input-group-addon">min / Km</span>
                                         </div>
                                     </div>
@@ -52,20 +52,17 @@
                             <div class="control-group">
                                 <div class="col-sm-3">
                                     <div class="controls">
-                                        <label>Time</label>
+                                        <label>{{ form_run.time_hours.label }}</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="controls">
                                         <div class="input-group">
-                                            <input type="text" name="time[hours]" class="form-control"
-                                                   aria-label="Enter number of hours" id="time_hours" value="">
+                                            {{ form_run.time_hours(class="form-control", **{"aria-label": "Enter time (hours)"}) }}
                                             <span class="input-group-addon">:</span>
-                                            <input type="text" name="time[minutes]" class="form-control"
-                                                   aria-label="Enter number of minutes" id="time_minutes" value="">
+                                            {{ form_run.time_minutes(class="form-control", **{"aria-label": "Enter time (minutes)"}) }}
                                             <span class="input-group-addon">:</span>
-                                            <input type="text" name="time[seconds]" class="form-control"
-                                                   aria-label="Enter number of seconds" id="time_seconds" value="">
+                                            {{ form_run.time_seconds(class="form-control", **{"aria-label": "Enter time (seconds)"}) }}
                                         </div>
                                     </div>
                                 </div>
@@ -75,8 +72,9 @@
                         <div class="row">
                             <div class="control-group">
                                 <div class="col-sm-12">
-                                    <br />
-                                    <button type="submit" class="btn btn-default pull-right calculate">Calculate</button>
+                                    <br/>
+                                    <button type="submit" class="btn btn-default pull-right calculate">Calculate
+                                    </button>
                                 </div>
                             </div>
                         </div>
