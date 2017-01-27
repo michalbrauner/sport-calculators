@@ -7,7 +7,7 @@ $(document).ready(function () {
 
         var submittedForm = $(this);
 
-        $(submittedForm).find('.has-error').each(function(index, element) {
+        $(submittedForm).find('.has-error').each(function (index, element) {
             $(element).removeClass('has-error');
         });
 
@@ -16,14 +16,30 @@ $(document).ready(function () {
         $.post($(this).attr('action'), $(this).serialize(), function (response) {
 
             if (response.result == false) {
-                $.each(response.errors, function(errorField, errorValue) {
-                    var field = $(submittedForm).find('[name='+errorField+']');
+                $.each(response.errors, function (errorField, errorValue) {
+                    var field = $(submittedForm).find('[name=' + errorField + ']');
                     var errorBlock = $(field).parent().parent().find('.help-block.validMessage');
                     var controlGroup = $(field).parents('.control-group');
 
                     $(controlGroup).addClass('has-error');
                     $(errorBlock).html(errorValue[0]);
                 });
+            } else {
+
+                $(submittedForm).attr('data-result-is-calculated', '1');
+
+                if (typeof response.result_data.time !== 'undefined') {
+                    $(submittedForm).find('[name=time_hours]').val(response.result_data.time.hours);
+                    $(submittedForm).find('[name=time_minutes]').val(response.result_data.time.minutes);
+                    $(submittedForm).find('[name=time_seconds]').val(response.result_data.time.seconds);
+                }
+                else if (typeof response.result_data.tempo !== 'undefined') {
+                    $(submittedForm).find('[name=tempo_minutes]').val(response.result_data.tempo.minutes);
+                    $(submittedForm).find('[name=tempo_seconds]').val(response.result_data.tempo.seconds);
+                }
+                else if (typeof response.result_data.distance !== 'undefined') {
+                    $(submittedForm).find('[name=distance]').val(response.result_data.distance);
+                }
             }
 
         });
@@ -35,8 +51,18 @@ $(document).ready(function () {
     var calculator = new CalculatorRunning(calculatorRunningForm);
     calculator.setFieldsState();
 
-    $(calculatorRunningForm).find('input').on('keyup', function (e) {
+    $(calculatorRunningForm).find('button[name=reset]').on('click', function (e) {
+        $(calculatorRunningForm).removeAttr('data-result-is-calculated');
+        $(calculatorRunningForm).find('input').each(function(index, element) {
+            $(element).val('');
+        });
         calculator.setFieldsState();
+    });
+
+    $(calculatorRunningForm).find('input').on('keyup', function (e) {
+        if ($(calculatorRunningForm).attr('data-result-is-calculated') !== '1') {
+            calculator.setFieldsState();
+        }
     });
 });
 
@@ -51,7 +77,7 @@ function CalculatorRunning(form) {
 
     this.setFieldsState = function () {
 
-        var hasDistance = $.trim(this.getField(this.distanceSelector).val()) != '';
+        var hasDistance = this.hasDistance();
         var hasTempo = this.hasTempo();
         var hasTime = this.hasTime();
 
@@ -63,6 +89,10 @@ function CalculatorRunning(form) {
     this.getField = function (selector) {
         return $(this.form).find(selector);
     };
+
+    this.hasDistance = function () {
+        return $.trim(this.getField(this.distanceSelector).val()) != '';
+    }
 
     this.hasTime = function () {
         var hasTimeHours = $.trim(this.getField(this.timeHoursSelector).val()) != '';
@@ -79,18 +109,18 @@ function CalculatorRunning(form) {
         return hasTempoMinutes || hasTempoSeconds;
     }
 
-    this.setDisableAttributeToEditForTime = function(isDisabled) {
+    this.setDisableAttributeToEditForTime = function (isDisabled) {
         this.setDisableAttributeToEditForField(this.timeHoursSelector, isDisabled);
         this.setDisableAttributeToEditForField(this.timeMinutesSelector, isDisabled);
         this.setDisableAttributeToEditForField(this.timeSecondsSelector, isDisabled);
     }
 
-    this.setDisableAttributeToEditForTempo= function(isDisabled) {
+    this.setDisableAttributeToEditForTempo = function (isDisabled) {
         this.setDisableAttributeToEditForField(this.tempoMinutesSelector, isDisabled);
         this.setDisableAttributeToEditForField(this.tempoSecondsSelector, isDisabled);
     }
 
-    this.setDisableAttributeToEditForField = function(selector, isDisabled) {
+    this.setDisableAttributeToEditForField = function (selector, isDisabled) {
         this.getField(selector).prop('disabled', isDisabled);
     }
 }

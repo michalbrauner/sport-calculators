@@ -1,9 +1,13 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, validators
+from wtforms import IntegerField, FloatField, validators
 
 
 class CalculatorForm(FlaskForm):
-    distance = IntegerField(label='Distance', validators=[
+
+    class Meta:
+        csrf = False
+
+    distance = FloatField(label='Distance', validators=[
         validators.Optional(),
         validators.NumberRange(min=0)
     ])
@@ -50,15 +54,23 @@ class CalculatorForm(FlaskForm):
     def has_all_fields_to_calculate(self):
         filled_fields = 0
 
-        if self.distance.data is not None:
+        if self.has_distance():
             filled_fields += 1
 
-        if self.tempo_seconds.data is not None and self.tempo_minutes.data is not None:
+        if self.has_tempo():
             filled_fields += 1
 
-        if self.time_hours.data is not None and self.time_minutes.data is not None \
-                and self.time_seconds.data is not None:
-
+        if self.has_time():
             filled_fields += 1
 
         return filled_fields == 2
+
+    def has_distance(self):
+        return self.distance.data is not None
+
+    def has_tempo(self):
+        return self.tempo_seconds.data is not None and self.tempo_minutes.data is not None
+
+    def has_time(self):
+        return self.time_hours.data is not None and self.time_minutes.data is not None \
+            and self.time_seconds.data is not None
