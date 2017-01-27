@@ -23,6 +23,7 @@
                                             {{ form_run.distance(class="form-control", **{"aria-label": "Enter distance in Km"}) }}
                                             <span class="input-group-addon">Km</span>
                                         </div>
+                                        <small class="help-block validMessage"></small>
                                     </div>
                                 </div>
                             </div>
@@ -43,6 +44,7 @@
                                             {{ form_run.tempo_seconds(class="form-control", **{"aria-label": "Enter tempo (seconds)"}) }}
                                             <span class="input-group-addon">min / Km</span>
                                         </div>
+                                        <small class="help-block validMessage"></small>
                                     </div>
                                 </div>
                             </div>
@@ -63,7 +65,9 @@
                                             {{ form_run.time_minutes(class="form-control", **{"aria-label": "Enter time (minutes)"}) }}
                                             <span class="input-group-addon">:</span>
                                             {{ form_run.time_seconds(class="form-control", **{"aria-label": "Enter time (seconds)"}) }}
+
                                         </div>
+                                        <small class="help-block validMessage"></small>
                                     </div>
                                 </div>
                             </div>

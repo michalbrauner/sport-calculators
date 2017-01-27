@@ -5,8 +5,27 @@ $(document).ready(function () {
     $(calculatorRunningForm).on('submit', function (e) {
         e.preventDefault();
 
+        var submittedForm = $(this);
+
+        $(submittedForm).find('.has-error').each(function(index, element) {
+            $(element).removeClass('has-error');
+        });
+
+        $(submittedForm).find('.help-block.validMessage').html('');
+
         $.post($(this).attr('action'), $(this).serialize(), function (response) {
-            console.log(response);
+
+            if (response.result == false) {
+                $.each(response.errors, function(errorField, errorValue) {
+                    var field = $(submittedForm).find('[name='+errorField+']');
+                    var errorBlock = $(field).parent().parent().find('.help-block.validMessage');
+                    var controlGroup = $(field).parents('.control-group');
+
+                    $(controlGroup).addClass('has-error');
+                    $(errorBlock).html(errorValue[0]);
+                });
+            }
+
         });
 
         return false;

@@ -9,17 +9,21 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    form_run = RunCalculatorForm(request.form)
+    form_run = RunCalculatorForm(csrf_enabled=False)
     return render_template('general/index.html', form_run=form_run)
 
 
 @app.route("/calculate-run", methods=["POST"])
 def calculate_run():
 
-    response_data = {"result": False}
+    response_data = {"result": False, "errors": {}}
 
-    if request.method == "POST":
-        response_data.result = True
+    form = RunCalculatorForm(csrf_enabled=False)
+
+    if form.validate_on_submit():
+        response_data["result"] = True
+    else:
+        response_data["errors"] = form.errors
 
     return jsonify(response_data)
 
