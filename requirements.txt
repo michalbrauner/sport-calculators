@@ -1,3 +1,4 @@
 Flask==0.12
 Flask_WTF==0.14.2
 WTForms==2.1
+gunicorn
