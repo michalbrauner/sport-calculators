@@ -5,92 +5,17 @@
 
         <h1>Distance, tempo or time calculator</h1>
 
+
         <div id="calculator-container">
-            <div id="calculator-running">
-                <p>Enter values into two fields and calculate the last one.</p>
-                <form method="post" action="{{ url_for('calculate_run') }}" autocomplete="off">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="control-group">
-                                <div class="col-sm-3">
-                                    <div class="controls">
-                                        <label>{{ form_run.distance.label }}</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="controls">
-                                        <div class="input-group">
-                                            {{ form_run.distance(class="form-control", **{"aria-label": "Enter distance in Km"}) }}
-                                            <span class="input-group-addon">Km</span>
-                                        </div>
-                                        <small class="help-block validMessage"></small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <h2>Swimming</h2>
+            {% with form=form_swim, container_id='calculator-swimming', action_url=url_for('calculate_swim') %}
+                {% include 'general/calculator.html' %}
+            {% endwith %}
 
-                        <div class="row">
-                            <div class="control-group">
-                                <div class="col-sm-3">
-                                    <div class="controls">
-                                        <label>{{ form_run.tempo_minutes.label }}</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="controls">
-                                        <div class="input-group">
-                                            {{ form_run.tempo_minutes(class="form-control", **{"aria-label": "Enter tempo (minutes)"}) }}
-                                            <span class="input-group-addon">:</span>
-                                            {{ form_run.tempo_seconds(class="form-control", **{"aria-label": "Enter tempo (seconds)"}) }}
-                                            <span class="input-group-addon">min / Km</span>
-                                        </div>
-                                        <small class="help-block validMessage"></small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="control-group">
-                                <div class="col-sm-3">
-                                    <div class="controls">
-                                        <label>{{ form_run.time_hours.label }}</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="controls">
-                                        <div class="input-group">
-                                            {{ form_run.time_hours(class="form-control", **{"aria-label": "Enter time (hours)"}) }}
-                                            <span class="input-group-addon">:</span>
-                                            {{ form_run.time_minutes(class="form-control", **{"aria-label": "Enter time (minutes)"}) }}
-                                            <span class="input-group-addon">:</span>
-                                            {{ form_run.time_seconds(class="form-control", **{"aria-label": "Enter time (seconds)"}) }}
-
-                                        </div>
-                                        <small class="help-block validMessage"></small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="control-group">
-                                <br/>
-                                <div class="col-sm-8">
-                                </div>
-                                <div class="col-sm-2">
-                                    <button name="reset" type="button" class="btn btn-link pull-right calculate">Reset
-                                    </button>
-                                </div>
-                                <div class="col-sm-2">
-                                    <button type="submit" class="btn btn-success pull-right calculate">Calculate
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+            <h2>Running</h2>
+            {% with form=form_run, container_id='calculator-running', action_url=url_for('calculate_run') %}
+                {% include 'general/calculator.html' %}
+            {% endwith %}
         </div>
     </div>
 {% endblock %}
