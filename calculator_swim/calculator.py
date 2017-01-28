@@ -10,16 +10,16 @@ class Calculator(BaseCalculator):
         distance = self.form.distance.data
         tempo_normalized_to_seconds = self.get_tempo_normalized_to_seconds()
 
-        return distance * tempo_normalized_to_seconds
+        return distance * tempo_normalized_to_seconds / 100
 
     def calculate_tempo(self):
         distance = self.form.distance.data
         time_normalized_to_seconds = self.get_time_normalized_to_seconds()
 
-        return round(time_normalized_to_seconds / distance, 0)
+        return round((time_normalized_to_seconds * 100) / distance, 0)
 
     def calculate_distance(self):
         tempo_normalized_to_seconds = self.get_tempo_normalized_to_seconds()
         time_normalized_to_seconds = self.get_time_normalized_to_seconds()
 
-        return round(time_normalized_to_seconds / tempo_normalized_to_seconds, 3)
+        return round(100 * time_normalized_to_seconds / tempo_normalized_to_seconds, 3)

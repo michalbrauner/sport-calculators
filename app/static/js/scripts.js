@@ -1,8 +1,12 @@
 $(document).ready(function () {
 
-    var calculatorRunningForm = $('#calculator-running form');
+    initCalculator($('#calculator-running form'));
+    initCalculator($('#calculator-swimming form'));
+});
 
-    $(calculatorRunningForm).on('submit', function (e) {
+function initCalculator(form)
+{
+    $(form).on('submit', function (e) {
         e.preventDefault();
 
         var submittedForm = $(this);
@@ -48,25 +52,25 @@ $(document).ready(function () {
 
     });
 
-    var calculator = new CalculatorRunning(calculatorRunningForm);
+    var calculator = new Calculator(form);
     calculator.setFieldsState();
 
-    $(calculatorRunningForm).find('button[name=reset]').on('click', function (e) {
-        $(calculatorRunningForm).removeAttr('data-result-is-calculated');
-        $(calculatorRunningForm).find('input').each(function(index, element) {
+    $(form).find('button[name=reset]').on('click', function (e) {
+        $(form).removeAttr('data-result-is-calculated');
+        $(form).find('input').each(function(index, element) {
             $(element).val('');
         });
         calculator.setFieldsState();
     });
 
-    $(calculatorRunningForm).find('input').on('keyup', function (e) {
-        if ($(calculatorRunningForm).attr('data-result-is-calculated') !== '1') {
+    $(form).find('input').on('keyup', function (e) {
+        if ($(form).attr('data-result-is-calculated') !== '1') {
             calculator.setFieldsState();
         }
     });
-});
+}
 
-function CalculatorRunning(form) {
+function Calculator(form) {
     this.form = form;
     this.distanceSelector = 'input[name=distance]';
     this.tempoMinutesSelector = 'input[name=tempo_minutes]';

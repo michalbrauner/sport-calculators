@@ -1,0 +1,85 @@
+<div id="{{ container_id }}">
+    <p>Enter values into two fields and calculate the last one.</p>
+    <form method="post" action="{{ action_url }}" autocomplete="off">
+        <div class="form-group">
+            <div class="row">
+                <div class="control-group">
+                    <div class="col-sm-3">
+                        <div class="controls">
+                            <label>{{ form.distance.label }}</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="controls">
+                            <div class="input-group">
+                                {{ form.distance }}
+                                <span class="input-group-addon">{{ form.UnitLabels.distance }}</span>
+                            </div>
+                            <small class="help-block validMessage"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="control-group">
+                    <div class="col-sm-3">
+                        <div class="controls">
+                            <label>{{ form.tempo_minutes.label }}</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="controls">
+                            <div class="input-group">
+                                {{ form.tempo_minutes }}
+                                <span class="input-group-addon">:</span>
+                                {{ form.tempo_seconds }}
+                                <span class="input-group-addon">{{ form.UnitLabels.tempo }}</span>
+                            </div>
+                            <small class="help-block validMessage"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="control-group">
+                    <div class="col-sm-3">
+                        <div class="controls">
+                            <label>{{ form.time_hours.label }}</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="controls">
+                            <div class="input-group">
+                                {{ form.time_hours }}
+                                <span class="input-group-addon">:</span>
+                                {{ form.time_minutes }}
+                                <span class="input-group-addon">:</span>
+                                {{ form.time_seconds }}
+
+                            </div>
+                            <small class="help-block validMessage"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="control-group">
+                    <br/>
+                    <div class="col-sm-8">
+                    </div>
+                    <div class="col-sm-2">
+                        <button name="reset" type="button" class="btn btn-link pull-right calculate">Reset
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-success pull-right calculate">Calculate
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
