@@ -2,7 +2,33 @@ $(document).ready(function () {
 
     initCalculator($('#calculator-running form'));
     initCalculator($('#calculator-swimming form'));
+
+    $(window).on('hashchange', function() {
+        initContentByUrl();
+    });
+
+    initContentByUrl();
 });
+
+function initContentByUrl()
+{
+    var hash = window.location.hash;
+
+    var elementToShow = $('#calculator-container > [data-routing-code="'+hash+'"]');
+
+    if ($(elementToShow).length > 0) {
+        $('#calculator-container > .panel').addClass('hidden');
+        $(elementToShow).removeClass('hidden');
+
+        $('#main-nav li').each(function (key, element) {
+            if ($(element).find('a').attr('href') == hash) {
+                $(element).addClass('active');
+            } else {
+                $(element).removeClass('active');
+            }
+        });
+    }
+}
 
 function initCalculator(form)
 {

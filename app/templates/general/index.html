@@ -5,17 +5,34 @@
 
         <h1>Distance, tempo or time calculator</h1>
 
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <ul class="nav nav-pills" id="main-nav">
+                    <li role="presentation" class="active"><a href="#run">Running</a></li>
+                    <li role="presentation"><a href="#swim">Swimming</a></li>
+                </ul>
+            </div>
+        </div>
 
         <div id="calculator-container">
-            <h2>Swimming</h2>
-            {% with form=form_swim, container_id='calculator-swimming', action_url=url_for('calculate_swim') %}
-                {% include 'general/calculator.html' %}
-            {% endwith %}
 
-            <h2>Running</h2>
-            {% with form=form_run, container_id='calculator-running', action_url=url_for('calculate_run') %}
-                {% include 'general/calculator.html' %}
-            {% endwith %}
+            <div class="panel panel-default" data-routing-code="#run">
+                <div class="panel-heading">Running</div>
+                <div class="panel-body">
+                    {% with form=form_run, container_id='calculator-running', action_url=url_for('calculate_run') %}
+                        {% include 'general/calculator.html' %}
+                    {% endwith %}
+                </div>
+            </div>
+
+            <div class="panel panel-default hidden" data-routing-code="#swim">
+                <div class="panel-heading">Swimming</div>
+                <div class="panel-body">
+                    {% with form=form_swim, container_id='calculator-swimming', action_url=url_for('calculate_swim') %}
+                        {% include 'general/calculator.html' %}
+                    {% endwith %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

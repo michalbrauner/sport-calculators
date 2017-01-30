@@ -37,6 +37,10 @@ body {
     margin-bottom: 20px;
 }
 
+#app .hidden {
+    display: none;
+}
+
 
 
 
