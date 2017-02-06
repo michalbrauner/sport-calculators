@@ -5,10 +5,15 @@ from calculator_run.form import CalculatorForm as RunCalculatorForm
 from calculator_run.calculator import Calculator as RunCalculator
 from calculator_swim.form import CalculatorForm as SwimCalculatorForm
 from calculator_swim.calculator import Calculator as SwimCalculator
-from calculator.form import CalculatorForm as BaseCalculatorForm
 import app.convertors
+import os
 
 app = Flask(__name__)
+
+if os.environ.get('IS_HEROKU', 0) == 0:
+    app.config.from_object('config.DevelopmentConfig')
+else:
+    app.config.from_object('config.ProductionConfig')
 
 
 @app.route("/")
