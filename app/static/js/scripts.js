@@ -4,15 +4,23 @@ $(document).ready(function () {
     initCalculator($('#calculator-swimming form'));
 
     $(window).on('hashchange', function() {
-        initContentByUrl();
+        initContentByUrl(true);
     });
 
-    initContentByUrl();
+    initContentByUrl(false);
 });
 
-function initContentByUrl()
+function initContentByUrl(hashChanged)
 {
     var hash = window.location.hash;
+
+    if (hashChanged) {
+
+        if (typeof ga !== 'undefined') {
+            var page = '/' + hash.replace('#', '');
+            ga('send', 'pageview', page);
+        }
+    }
 
     var elementToShow = $('#calculator-container > [data-routing-code="'+hash+'"]');
 
